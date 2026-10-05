@@ -72,9 +72,11 @@ app.use(
 const allowedOrigins = [
   "http://localhost:5173",
   "http://localhost:8081",
+  "http://192.168.1.89:5173",
+  "http://192.168.1.89:8081",
   "http://192.168.1.145:5173",
   "http://192.168.1.145:8081",
-  "http://localhost:3000",
+  "http://10.0.2.2:8081",
   "http://localhost:3000"
 ];
 

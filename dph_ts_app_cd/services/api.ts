@@ -2,7 +2,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as FileSystem from 'expo-file-system/legacy';
 import { User } from '../types/navigation';
 
-export const BASE_URL = 'http://192.168.1.145:3000';
+export const BASE_URL = 'http://192.168.1.89:3000';
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -128,7 +128,7 @@ export const loginUser = async (
 
 // ─── Chlorine: Predict ────────────────────────────────────────────────────────
 
-export const CHLORINE_PREDICT_URL = 'http://192.168.1.145:5100/vfive_predict';
+export const CHLORINE_PREDICT_URL = 'http://192.168.1.89:5100/vfive_predict';
 
 /**
  * Sends a captured image to the prediction endpoint.
