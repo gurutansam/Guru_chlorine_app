@@ -1,0 +1,23 @@
+# Python virtual environment
+venv/
+.venv/
+
+# Debug output images
+debug_outputs/
+
+# YOLO weights (large file)
+yolov8n.pt
+
+# Python cache
+__pycache__/
+*.pyc
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Models folder - ignore everything except required .onnx files
+models/*
+!models/
+!models/chlorine_model_fixed.onnx
+!models/tube_detector.onnx

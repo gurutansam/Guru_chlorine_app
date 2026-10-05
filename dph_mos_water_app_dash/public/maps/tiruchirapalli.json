@@ -1,0 +1,102 @@
+{
+  "HUB003": {
+    "TIRUCH": {
+      "district_name": "Tiruchirappalli",
+      "blocks": [
+        { "name": "Andanallur", "type": "Hospital", "lat": 10.8580, "lng": 78.6260 },
+        { "name": "Lalgudi", "type": "Hospital", "lat": 10.8758, "lng": 78.8197 },
+        { "name": "Manachanallur", "type": "Hospital", "lat": 10.9397, "lng": 78.8006 },
+        { "name": "Manaparai", "type": "Hospital", "lat": 10.6074, "lng": 78.4316 },
+        { "name": "Manaparai MPTY", "type": "Municipality", "lat": 10.6074, "lng": 78.4316 },
+        { "name": "Manikandam", "type": "Hospital", "lat": 10.8136, "lng": 78.6537 },
+        { "name": "Marungapuri", "type": "Hospital", "lat": 10.3853, "lng": 78.5197 },
+        { "name": "Musiri", "type": "Hospital", "lat": 11.0337, "lng": 78.4470 },
+        { "name": "Pullambadi", "type": "Hospital", "lat": 10.9674, "lng": 78.9148 },
+        { "name": "Thathaiangarpet", "type": "Hospital", "lat": 11.1194, "lng": 78.4496 },
+        { "name": "Thiruvarambur", "type": "Hospital", "lat": 10.7725, "lng": 78.7081 },
+        { "name": "Thottiam", "type": "Hospital", "lat": 11.1028, "lng": 78.3645 },
+        { "name": "Thuraiyur", "type": "Hospital", "lat": 11.1019, "lng": 78.5990 },
+        { "name": "Thuraiyur MPTY", "type": "Municipality", "lat": 11.1019, "lng": 78.5990 },
+        { "name": "Tiruchirappalli CORPN", "type": "Corporation", "lat": 10.7905, "lng": 78.7047 },
+        { "name": "Uppiliapuram", "type": "Hospital", "lat": 11.2408, "lng": 78.5804 },
+        { "name": "Vaiyampatti", "type": "Hospital", "lat": 10.5939, "lng": 78.2635 }
+      ]
+    },
+    "PERAMB": {
+      "district_name": "Perambalur",
+      "blocks": [
+        { "name": "Alathur", "type": "Hospital", "lat": 11.2667, "lng": 78.9833 },
+        { "name": "Perambalur", "type": "Hospital", "lat": 11.2333, "lng": 78.8667 },
+        { "name": "Perambalur MPTY", "type": "Municipality", "lat": 11.2333, "lng": 78.8667 },
+        { "name": "Veppanthattai", "type": "Hospital", "lat": 11.2833, "lng": 78.8167 },
+        { "name": "Veppur", "type": "Hospital", "lat": 11.3000, "lng": 79.0000 }
+      ]
+    },
+    "ARIYAL": {
+      "district_name": "Ariyalur",
+      "blocks": [
+        { "name": "Andimadam", "type": "Hospital", "lat": 11.2000, "lng": 79.3000 },
+        { "name": "Ariyalur", "type": "Hospital", "lat": 11.1500, "lng": 79.0833 },
+        { "name": "Ariyalur MPTY", "type": "Municipality", "lat": 11.1500, "lng": 79.0833 },
+        { "name": "Jayamkondam", "type": "Hospital", "lat": 11.2000, "lng": 79.3667 },
+        { "name": "Jayamkondam MPTY", "type": "Municipality", "lat": 11.2000, "lng": 79.3667 },
+        { "name": "Sendurai", "type": "Hospital", "lat": 11.3333, "lng": 78.9833 },
+        { "name": "T.Palur", "type": "Hospital", "lat": 11.2500, "lng": 79.4000 }
+      ]
+    },
+    "THANJ": {
+      "district_name": "Thanjavur",
+      "blocks": [
+        { "name": "Ammapettai", "type": "Hospital", "lat": 10.7000, "lng": 79.1833 },
+        { "name": "Budalur", "type": "Hospital", "lat": 10.8000, "lng": 78.9833 },
+        { "name": "Kumbakonam", "type": "Hospital", "lat": 10.9622, "lng": 79.3916 },
+        { "name": "Kumbakonam MPTY", "type": "Municipality", "lat": 10.9622, "lng": 79.3916 },
+        { "name": "Madukkur", "type": "Hospital", "lat": 10.4833, "lng": 79.4000 },
+        { "name": "Orathanadu", "type": "Hospital", "lat": 10.6000, "lng": 79.2500 },
+        { "name": "Papanasam", "type": "Hospital", "lat": 10.9333, "lng": 79.2833 },
+        { "name": "Pattukkottai MPTY", "type": "Municipality", "lat": 10.4269, "lng": 79.3197 },
+        { "name": "Pattukottai", "type": "Hospital", "lat": 10.4269, "lng": 79.3197 },
+        { "name": "Peravurani", "type": "Hospital", "lat": 10.2933, "lng": 79.2016 },
+        { "name": "Sethubavachathram", "type": "Hospital", "lat": 10.2280, "lng": 79.2970 },
+        { "name": "Thanjavur", "type": "Hospital", "lat": 10.7867, "lng": 79.1391 },
+        { "name": "Thanjavur CORPN", "type": "Corporation", "lat": 10.7867, "lng": 79.1391 },
+        { "name": "Thirupanandhal", "type": "Hospital", "lat": 11.0167, "lng": 79.4500 },
+        { "name": "Thiruvaiyaru", "type": "Hospital", "lat": 10.8796, "lng": 79.1031 },
+        { "name": "Thiruvidaimarudhur", "type": "Hospital", "lat": 10.9917, "lng": 79.4667 },
+        { "name": "Thiruvonam", "type": "Hospital", "lat": 10.4739, "lng": 79.2531 }
+      ]
+    },
+    "THIRU": {
+      "district_name": "Thiruvarur",
+      "blocks": [
+        { "name": "Kodavasal", "type": "Hospital", "lat": 10.7722, "lng": 79.5096 },
+        { "name": "Koothanallur MPTY", "type": "Municipality", "lat": 10.7200, "lng": 79.5000 },
+        { "name": "Koradacheri", "type": "Hospital", "lat": 10.8167, "lng": 79.4167 },
+        { "name": "Kottur", "type": "Hospital", "lat": 10.7667, "lng": 79.5167 },
+        { "name": "Mannargudi", "type": "Hospital", "lat": 10.6652, "lng": 79.4506 },
+        { "name": "Mannargudi MPTY", "type": "Municipality", "lat": 10.6652, "lng": 79.4506 },
+        { "name": "Muthupettai", "type": "Hospital", "lat": 10.4000, "lng": 79.4833 },
+        { "name": "Nannilam", "type": "Hospital", "lat": 10.8833, "lng": 79.6000 },
+        { "name": "Needamangalam", "type": "Hospital", "lat": 10.7730, "lng": 79.4189 },
+        { "name": "Thiruthuraipoondi", "type": "Hospital", "lat": 10.5285, "lng": 79.6352 },
+        { "name": "Thiruvarur", "type": "Hospital", "lat": 10.7677, "lng": 79.6368 },
+        { "name": "Thiruvarur MPTY", "type": "Municipality", "lat": 10.7677, "lng": 79.6368 },
+        { "name": "Tiruthuraipoondi MPTY", "type": "Municipality", "lat": 10.5285, "lng": 79.6352 },
+        { "name": "Valangaiman", "type": "Hospital", "lat": 10.7167, "lng": 79.4667 }
+      ]
+    },
+    "PUDUKK": {
+      "district_name": "Pudukkottai",
+      "blocks": [
+        { "name": "Annavasal", "type": "Hospital", "lat": 10.4667, "lng": 78.6167 },
+        { "name": "Arimalam", "type": "Hospital", "lat": 10.2667, "lng": 78.8833 },
+        { "name": "Kunnandarkoil", "type": "Hospital", "lat": 10.5500, "lng": 78.7167 },
+        { "name": "Ponnamaravathy", "type": "Hospital", "lat": 10.3167, "lng": 78.5667 },
+        { "name": "Pudukkottai", "type": "Hospital", "lat": 10.3813, "lng": 78.8214 },
+        { "name": "Pudukottai MPTY", "type": "Municipality", "lat": 10.3813, "lng": 78.8214 },
+        { "name": "Thirumayam", "type": "Hospital", "lat": 10.2480, "lng": 78.6850 },
+        { "name": "Viralimalai", "type": "Hospital", "lat": 10.5242, "lng": 78.5910 }
+      ]
+    }
+  }
+}

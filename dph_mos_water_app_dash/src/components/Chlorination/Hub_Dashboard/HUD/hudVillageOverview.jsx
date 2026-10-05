@@ -1,0 +1,162 @@
+import React, { useEffect, useState } from "react";
+import {
+  Box,
+  Typography,
+  Card,
+  CardContent,
+  Table,
+  TableHead,
+  TableRow,
+  TableCell,
+  TableBody
+} from "@mui/material";
+import { DataGrid } from "@mui/x-data-grid";
+import DashboardLayout from "../DashboardLayout";
+
+export default function ChlhubHudVillageMasterView() {
+  const [villages, setVillages] = useState([]);
+  const [summary, setSummary] = useState([]);
+
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem("loggedInUser"));
+    if (!user?.hub_id) {
+      console.error("Hub ID not found in logged in user.");
+      return;
+    }
+
+    fetchData(user.hub_id);
+  }, []);
+
+  const fetchData = async (hubId) => {
+    try {
+      // 1. Fetch all HUDs
+      const hudRes = await fetch("http://localhost:3000/dashboard/hud");
+      const hudData = await hudRes.json();
+
+      // 2. Filter HUDs belonging to the current hub
+      const filteredHUDs = hudData.filter((hud) => hud.hub_id === hubId);
+      const hudIds = filteredHUDs.map((hud) => hud.hud_id);
+
+      // 3. Fetch all villages
+      const villageRes = await fetch("http://localhost:3000/dashboard/village");
+      const villageData = await villageRes.json();
+
+      // 4. Filter villages where hud_id belongs to current hub's HUDs
+      const filteredVillages = villageData.filter((v) =>
+        hudIds.includes(v.hud_id)
+      );
+      setVillages(filteredVillages);
+
+      // ? 5. Fetch HUD-blocks data
+      const blockRes = await fetch("http://localhost:3000/dashboard/hud-blocks");
+      const blockData = await blockRes.json();
+
+      // ? 6. Prepare summary using villages + hud-blocks
+      const grouped = groupByHUD(filteredVillages, blockData);
+      setSummary(grouped);
+    } catch (err) {
+      console.error("Error fetching data:", err);
+    }
+  };
+
+  const groupByHUD = (villages, blockData) => {
+    const map = new Map();
+
+    villages.forEach((v) => {
+      if (!map.has(v.hud_id)) {
+        // find block count from API instead of Set()
+        const hudBlocks = blockData.filter((b) => b.hud_id === v.hud_id);
+
+        map.set(v.hud_id, {
+          hud_id: v.hud_id,
+          hud_name: v.hud_name,
+          block_count: hudBlocks.length, // ? from API
+          villages: 0
+        });
+      }
+
+      const hudData = map.get(v.hud_id);
+      hudData.villages += 1;
+    });
+
+    return Array.from(map.values()).map((item) => ({
+      hud_id: item.hud_id,
+      hud_name: item.hud_name,
+      block_count: item.block_count,
+      village_count: item.villages
+    }));
+  };
+
+
+  const columns = [
+    { field: "id", headerName: "ID", width: 90 },
+    { field: "hud_name", headerName: "HUD Name", width: 180 },
+    { field: "block_name", headerName: "Block Name", width: 280 },
+    { field: "village_name", headerName: "Village Name", width: 480 }
+  ];
+
+  const detailedRows = villages.map((v, index) => ({
+    id: index + 1,
+    ...v
+  }));
+
+  return (
+    <DashboardLayout>
+      <Box p={2} pt={15} pl={10}>
+        <Typography variant="h5" gutterBottom>
+          HUD-wise Village Summary
+        </Typography>
+
+        <Card sx={{ mb: 4 }}>
+          <CardContent>
+            <Table>
+              <TableHead>
+                <TableRow>
+                  <TableCell sx={{ color: "black", fontWeight: "bold" }}>HUD ID</TableCell>
+                  <TableCell sx={{ color: "black", fontWeight: "bold" }}>HUD Name</TableCell>
+                  <TableCell sx={{ color: "black", fontWeight: "bold" }}>Block Count</TableCell>
+                  <TableCell sx={{ color: "black", fontWeight: "bold" }}>Village Count</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {summary.map((row, idx) => (
+                  <TableRow key={idx}>
+                    <TableCell>{row.hud_id}</TableCell>
+                    <TableCell>{row.hud_name}</TableCell>
+                    <TableCell>{row.block_count}</TableCell>
+                    <TableCell>{row.village_count}</TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </CardContent>
+        </Card>
+
+        <Typography variant="h6" gutterBottom>
+          Village Detail View
+        </Typography>
+
+        <Card>
+          <CardContent>
+            <div style={{ height: 500, width: "100%" }}>
+              <DataGrid
+                rows={detailedRows}
+                columns={columns}
+                pageSize={10}
+                rowsPerPageOptions={[10, 20, 50]}
+                sx={{
+                  "& .MuiDataGrid-columnHeaders": {
+                    backgroundColor: "#2A2F5B",
+                    color: "black",
+                    fontWeight: "bold",
+                    fontSize: "1.1rem"
+                  }
+                }}
+              />
+            </div>
+          </CardContent>
+        </Card>
+      </Box>
+    </DashboardLayout>
+  );
+}

@@ -1,0 +1,203 @@
+{
+  "HUB001": {
+     "CHENN": {
+      "district_name": "Chennai",
+      "blocks": [
+        {
+          "name": "Chennai CORPN",
+          "type": "Corporation",
+          "lat": 13.0827,
+          "lng": 80.2707
+        },
+        {
+          "name": "Kilpauk GH",
+          "type": "Government Hospital",
+          "lat": 13.082,
+          "lng": 80.25
+        },
+        {
+          "name": "Central Railway",
+          "type": "Railway Station",
+          "lat": 13.08,
+          "lng": 80.27
+        }
+      ]
+    },
+    "TIRUP": {
+      "district_name": "Tirupathur",
+      "blocks": [
+        { "name": "Tirupattur", "type": "Hospital", "lat": 12.4966, "lng": 78.5718 },
+        { "name": "Natrampalli", "type": "Hospital", "lat": 12.5651, "lng": 78.5478 },
+        { "name": "Jolarpet", "type": "Hospital", "lat": 12.5707, "lng": 78.5734 },
+        { "name": "Alangayam", "type": "Hospital", "lat": 12.6168, "lng": 78.7504 },
+        { "name": "Kandhili", "type": "Hospital", "lat": 12.5167, "lng": 78.6833 },
+        { "name": "Madhanur", "type": "Hospital", "lat": 12.3667, "lng": 78.8333 },
+        { "name": "Ambur MPTY", "type": "Municipality", "lat": 12.7904, "lng": 78.7166 },
+        { "name": "Tirupathur MPTY", "type": "Municipality", "lat": 12.4966, "lng": 78.5718 },
+        { "name": "Vaniyambadi MPTY", "type": "Municipality", "lat": 12.6950, "lng": 78.6219 }
+      ]
+    },
+    "VILLU": {
+      "district_name": "Viluppuram",
+      "blocks": [
+        { "name": "Viluppuram", "type": "Hospital", "lat": 11.9393, "lng": 79.4888 },
+        { "name": "Gingee", "type": "Hospital", "lat": 12.2558, "lng": 79.4177 },
+        { "name": "Kandamangalam", "type": "Hospital", "lat": 11.9797, "lng": 79.7269 },
+        { "name": "Mailam", "type": "Hospital", "lat": 12.0274, "lng": 79.5736 },
+        { "name": "Koliyanur", "type": "Hospital", "lat": 11.9393, "lng": 79.4888 },
+        { "name": "Tindivanam MPTY", "type": "Municipality", "lat": 12.2473, "lng": 79.6553 },
+        { "name": "Marakkanam", "type": "Hospital", "lat": 12.1921, "lng": 79.9419 },
+        { "name": "Melmalayanur", "type": "Hospital", "lat": 12.2307, "lng": 79.6556 },
+        { "name": "Vallam", "type": "Hospital", "lat": 12.8946, "lng": 79.9372 },
+        { "name": "Vanur", "type": "Hospital", "lat": 12.0263, "lng": 79.7330 },
+        { "name": "Kanai", "type": "Hospital", "lat": 12.2558, "lng": 79.4177 },
+        { "name": "Mugaiyur", "type": "Hospital", "lat": 12.2307, "lng": 79.6556 },
+        { "name": "Olakkur", "type": "Hospital", "lat": 11.9393, "lng": 79.4888 },
+        { "name": "Thiruvennainallur", "type": "Hospital", "lat": 11.9797, "lng": 79.7269 }
+      ]
+    },
+    "KALLA": {
+      "district_name": "Kallakurichi",
+      "blocks": [
+        { "name": "Kallakurichi", "type": "Hospital", "lat": 11.7380, "lng": 78.9591 },
+        { "name": "Sankarapuram", "type": "Hospital", "lat": 11.7787, "lng": 78.8959 },
+        { "name": "Ulundurpet", "type": "Hospital", "lat": 11.6972, "lng": 79.3248 },
+        { "name": "Chinnasalem", "type": "Hospital", "lat": 11.6106, "lng": 78.8663 },
+        { "name": "Tirukoilur", "type": "Hospital", "lat": 11.9661, "lng": 79.2006 },
+        { "name": "Thiyagadurgam", "type": "Hospital", "lat": 11.7594, "lng": 79.0306 },
+        { "name": "Kallakurichi MPTY", "type": "Municipality", "lat": 11.7380, "lng": 78.9591 },
+        { "name": "Rishivandiyam", "type": "Hospital", "lat": 11.6000, "lng": 79.0500 },
+        { "name": "Thirunavalur", "type": "Hospital", "lat": 11.9661, "lng": 79.2006 },
+        { "name": "Vellimalai", "type": "Hospital", "lat": 11.7000, "lng": 78.9000 }
+      ]
+    },
+    "CHENG": {
+      "district_name": "Chengalpattu",
+      "blocks": [
+        { "name": "Chengalpattu", "type": "Hospital", "lat": 12.6948, "lng": 79.9831 },
+        { "name": "Thirukazhukundram", "type": "Hospital", "lat": 12.5916, "lng": 80.0242 },
+        { "name": "Madurantakam", "type": "Hospital", "lat": 12.5118, "lng": 79.8841 },
+        { "name": "Tambaram", "type": "Hospital", "lat": 12.9246, "lng": 80.1005 },
+        { "name": "Vandalur", "type": "Hospital", "lat": 12.8926, "lng": 80.0814 },
+        { "name": "Pallavaram", "type": "Hospital", "lat": 12.9684, "lng": 80.1506 },
+        { "name": "Acharapakkam", "type": "Hospital", "lat": 12.5000, "lng": 79.8500 },
+        { "name": "Anakaputhur MPTY", "type": "Municipality", "lat": 12.9600, "lng": 80.1100 },
+        { "name": "Chithamur", "type": "Hospital", "lat": 12.5800, "lng": 79.9000 },
+        { "name": "Kattankolathur", "type": "Hospital", "lat": 12.8000, "lng": 80.0000 },
+        { "name": "Lathur-Pavanjur", "type": "Hospital", "lat": 12.6500, "lng": 79.9500 },
+        { "name": "Madurantagam MPTY", "type": "Municipality", "lat": 12.5118, "lng": 79.8841 },
+        { "name": "Pallavapuram MPTY", "type": "Municipality", "lat": 12.9600, "lng": 80.1506 },
+        { "name": "Pammal MPTY", "type": "Municipality", "lat": 12.9684, "lng": 80.1506 },
+        { "name": "Sembakkam MPTY", "type": "Municipality", "lat": 12.9000, "lng": 80.1600 },
+        { "name": "St. Thomas Mount", "type": "Institution", "lat": 13.0120, "lng": 80.2150 },
+        { "name": "Tambaram MPTY", "type": "Municipality", "lat": 12.9246, "lng": 80.1005 },
+        { "name": "Tiruporur", "type": "Hospital", "lat": 12.6667, "lng": 80.1167 }
+      ]
+    },
+    "VELLO": {
+      "district_name": "Vellore",
+      "blocks": [
+        { "name": "Vellore", "type": "Hospital", "lat": 12.9165, "lng": 79.1325 },
+        { "name": "Gudiyatham", "type": "Hospital", "lat": 12.9453, "lng": 78.8725 },
+        { "name": "Anaicut", "type": "Hospital", "lat": 12.8584, "lng": 78.9999 },
+        { "name": "Katpadi", "type": "Hospital", "lat": 12.9694, "lng": 79.1456 },
+        { "name": "Pernambut", "type": "Hospital", "lat": 12.9333, "lng": 78.7167 },
+        { "name": "Gudiyatham MPTY", "type": "Municipality", "lat": 12.9453, "lng": 78.8725 },
+        { "name": "K.V.Kuppam", "type": "Hospital", "lat": 12.8000, "lng": 78.9833 },
+        { "name": "Kaniyambadi", "type": "Hospital", "lat": 12.9000, "lng": 79.0333 },
+        { "name": "Pernambut MPTY", "type": "Municipality", "lat": 12.9333, "lng": 78.7167 },
+        { "name": "Vellore CORPN", "type": "Corporation", "lat": 12.9165, "lng": 79.1325 }
+      ]
+    },
+    "RANIP": {
+      "district_name": "Ranipet",
+      "blocks": [
+        { "name": "Ranipet", "type": "Hospital", "lat": 12.9446, "lng": 79.3335 },
+        { "name": "Arcot", "type": "Hospital", "lat": 12.9057, "lng": 79.3236 },
+        { "name": "Sholinghur", "type": "Hospital", "lat": 13.1151, "lng": 79.4315 },
+        { "name": "Walajah", "type": "Hospital", "lat": 12.9289, "lng": 79.3775 },
+        { "name": "Arakkonam", "type": "Hospital", "lat": 13.0905, "lng": 79.6718 },
+        { "name": "Arakkonam MPTY", "type": "Municipality", "lat": 13.0905, "lng": 79.6718 },
+        { "name": "Arcot MPTY", "type": "Municipality", "lat": 12.9057, "lng": 79.3236 },
+        { "name": "Kaveripakkam", "type": "Hospital", "lat": 12.9055, "lng": 79.4620 },
+        { "name": "Nemili", "type": "Hospital", "lat": 12.8283, "lng": 79.3077 },
+        { "name": "Ranipet MPTY", "type": "Municipality", "lat": 12.9336, "lng": 79.3414 },
+        { "name": "Thimiri", "type": "Corporation", "lat": 12.8283, "lng": 79.3077 },
+        { "name": "Walajapet MPTY", "type": "Municipality", "lat": 12.9251, "lng": 79.3140 }
+      ]
+    },
+    "THIRU": {
+      "district_name": "Thiruvallur",
+      "blocks": [
+        { "name": "Ellapuram", "type": "Hospital", "lat": 13.1183, "lng": 79.8735 },
+        { "name": "Gummidipoondi", "type": "Hospital", "lat": 13.4070, "lng": 80.1079 },
+        { "name": "Kadambattur", "type": "Hospital", "lat": 13.1156, "lng": 79.8786 },
+        { "name": "Minjur", "type": "Hospital", "lat": 13.2663, "lng": 80.2596 },
+        { "name": "Pallipattu", "type": "Hospital", "lat": 13.1760, "lng": 79.3320 },
+        { "name": "Poondi", "type": "Hospital", "lat": 13.1574, "lng": 79.8730 },
+        { "name": "Puzhal", "type": "Hospital", "lat": 13.1383, "lng": 80.1966 },
+        { "name": "R.K.Pet", "type": "Hospital", "lat": 13.2030, "lng": 79.4763 },
+        { "name": "Sholavaram", "type": "Hospital", "lat": 13.2036, "lng": 80.1980 },
+        { "name": "Thiruvallur MPTY", "type": "Municipality", "lat": 13.1434, "lng": 79.9084 },
+        { "name": "Thiruvelangadu", "type": "Hospital", "lat": 13.1101, "lng": 79.6359 },
+        { "name": "Thiruverkadu MPTY", "type": "Municipality", "lat": 13.0665, "lng": 80.1004 },
+        { "name": "Tiruttani", "type": "Hospital", "lat": 13.1795, "lng": 79.5884 },
+        { "name": "Tiruttani MPTY", "type": "Municipality", "lat": 13.1795, "lng": 79.5884 },
+        { "name": "Tiruvellore-Ikkadu", "type": "Hospital", "lat": 13.1242, "lng": 79.9126 },
+        { "name": "Villivakkam", "type": "Hospital", "lat": 13.1063, "lng": 80.2105 }
+      ]
+    },
+    "TIRUV": {
+      "district_name": "Tiruvannamalai",
+      "blocks": [
+        { "name": "Chengam", "type": "Hospital", "lat": 12.3068, "lng": 78.7958 },
+        { "name": "Chetpet", "type": "Hospital", "lat": 12.4889, "lng": 79.4211 },
+        { "name": "Jamnamaruthur", "type": "Hospital", "lat": 12.4964, "lng": 79.1342 },
+        { "name": "Kalasapakkam", "type": "Hospital", "lat": 12.5600, "lng": 79.0823 },
+        { "name": "Keezhpennathur", "type": "Hospital", "lat": 12.2066, "lng": 79.1091 },
+        { "name": "Mangalam", "type": "Hospital", "lat": 12.1587, "lng": 79.1949 },
+        { "name": "Polur", "type": "Hospital", "lat": 12.5103, "lng": 79.1244 },
+        { "name": "Pudupalayam", "type": "Hospital", "lat": 12.2356, "lng": 79.0702 },
+        { "name": "Thandarampattu", "type": "Hospital", "lat": 12.2212, "lng": 78.9556 },
+        { "name": "Thiruvannamalai", "type": "Hospital", "lat": 12.2253, "lng": 79.0747 },
+        { "name": "Tiruvannamalai MPTY", "type": "Municipality", "lat": 12.2266, "lng": 79.0742 },
+        { "name": "Vettavalam", "type": "Hospital", "lat": 12.1633, "lng": 79.2394 }
+      ]
+    },
+    "KANCHE": {
+      "district_name": "Kancheepuram",
+      "blocks": [
+        { "name": "Kanchipuram", "type": "Hospital", "lat": 12.8342, "lng": 79.7036 },
+        { "name": "Kanchipuram MPTY", "type": "Municipality", "lat": 12.8342, "lng": 79.7036 },
+        { "name": "Kundrathur‑Elichur", "type": "Hospital", "lat": 12.9697, "lng": 79.9819 },
+        { "name": "Sriperumbudur‑Maduramangalam", "type": "Hospital", "lat": 12.8933, "lng": 79.9640 },
+        { "name": "Uthiramerur‑Manampathy", "type": "Hospital", "lat": 12.5167, "lng": 79.6833 },
+        { "name": "Walajabad‑Parandur", "type": "Hospital", "lat": 12.8392, "lng": 79.6175 }
+      ]
+    },
+    "CUDDA": {
+      "district_name": "Cuddalore",
+      "blocks": [
+        { "name": "Annagiramam", "type": "Hospital", "lat": 11.4756, "lng": 79.4353 },
+        { "name": "Bhuvanagiri", "type": "Hospital", "lat": 11.44556, "lng": 79.65971 },
+        { "name": "Chidambaram MPTY", "type": "Municipality", "lat": 11.40050, "lng": 79.69500 },
+        { "name": "Cuddalore", "type": "Hospital", "lat": 11.74470, "lng": 79.76802 },
+        { "name": "Cuddalore MPTY", "type": "Municipality", "lat": 11.74470, "lng": 79.76802 },
+        { "name": "Kammapuram", "type": "Hospital", "lat": 11.51437, "lng": 79.32831 },
+        { "name": "Kattumannarkoil", "type": "Hospital", "lat": 11.39945, "lng": 79.48313 },
+        { "name": "Keerapalayam", "type": "Hospital", "lat": 11.43681, "lng": 79.64836 },
+        { "name": "Komaratchi", "type": "Hospital", "lat": 11.31337, "lng": 79.63405 },
+        { "name": "Kurinchipadi", "type": "Hospital", "lat": 11.56418, "lng": 79.59603 },
+        { "name": "Mangalur", "type": "Hospital", "lat": 11.47590, "lng": 78.97455 },
+        { "name": "Nallur", "type": "Hospital", "lat": 11.08959, "lng": 79.41927 },
+        { "name": "Nellikuppam MPTY", "type": "Municipality", "lat": 11.50700, "lng": 79.55300 },
+        { "name": "Panruti", "type": "Hospital", "lat": 11.76083, "lng": 79.65214 },        { "name": "Panrutti MPTY", "type": "Municipality", "lat": 11.76083, "lng": 79.65214 },
+        { "name": "Parangipettai", "type": "Hospital", "lat": 11.50070, "lng": 79.78317 },
+        { "name": "Srimushnam", "type": "Hospital", "lat": 11.36440, "lng": 79.85300 },
+        { "name": "Virudachalam MPTY", "type": "Municipality", "lat": 11.50560, "lng": 79.49050 },
+        { "name": "Viruddachalam", "type": "Hospital", "lat": 11.50560, "lng": 79.49050 }
+      ]
+        }
+  }
+  
+}

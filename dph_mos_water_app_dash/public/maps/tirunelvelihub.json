@@ -1,0 +1,97 @@
+{
+  "HUB004": {
+    "TIRUNELVELI": {
+      "district_name": "Tirunelveli",
+      "blocks": [
+        { "name": "Ambasamudhiram", "type": "Hospital", "lat": 8.7093, "lng": 77.4530 }, 
+        { "name": "Ambasamudram MPTY", "type": "Municipality", "lat": 8.7093, "lng": 77.4530 },
+        { "name": "Cheranmahadevi", "type": "Hospital", "lat": 8.68, "lng": 77.57 },               
+        { "name": "Kalakkadu", "type": "Hospital", "lat": 8.5152, "lng": 77.5506 },                   
+        { "name": "Manur", "type": "Hospital", "lat": 8.6265, "lng": 77.6419 },                      
+        { "name": "Nanguneri", "type": "Hospital", "lat": 8.4880, "lng": 77.7997 },                  
+        { "name": "Palayamkottai", "type": "Hospital", "lat": 8.7327, "lng": 77.7060 },          
+        { "name": "Pappakudi", "type": "Hospital", "lat": 8.7500, "lng": 77.5076 },                   
+        { "name": "Radhapuram", "type": "Hospital", "lat": 8.4774, "lng": 77.5201 },                 
+        { "name": "Tirunelveli CORPN.", "type": "Corporation", "lat": 8.7285, "lng": 77.6953 },         
+        { "name": "Valliyoor", "type": "Hospital", "lat": 8.5629, "lng": 77.6855 }                 
+      ]
+    },
+    "THOO": {
+      "district_name": "Thoothukkudi",
+      "blocks": [
+        { "name": "Alwarthirunagari", "type": "Hospital", "lat": 8.4691, "lng": 77.9079 },
+        { "name": "Karungulam", "type": "Hospital", "lat": 8.7848, "lng": 78.0760 },
+        { "name": "Kayalpattinam MPTY", "type": "Municipality", "lat": 8.5025, "lng": 78.1004 },
+        { "name": "Sathankulam", "type": "Hospital", "lat": 8.5423, "lng": 78.0669 },
+        { "name": "Srivaikundam", "type": "Hospital", "lat": 8.5395, "lng": 78.0982 },
+        { "name": "Thoothukudi CORPN.", "type": "Corporation", "lat": 8.7642, "lng": 78.1348 },
+        { "name": "Tiruchendur", "type": "Hospital", "lat": 8.4669, "lng": 78.1196 },
+        { "name": "Tuticorin", "type": "Hospital", "lat": 8.7650, "lng": 78.1348 },
+        { "name": "Udangudi", "type": "Hospital", "lat": 8.5670, "lng": 78.0921 }
+      ]
+    },
+    "TENK": {
+      "district_name": "Tenkasi",
+      "blocks": [
+        { "name": "Alankulam", "type": "Hospital", "lat": 8.9240, "lng": 77.3180 },
+        { "name": "Kadayam", "type": "Hospital", "lat": 8.8576, "lng": 77.2683 },
+        { "name": "Kadayanallur", "type": "Hospital", "lat": 8.9447, "lng": 77.3323 },
+        { "name": "Kadayanallur MPTY", "type": "Municipality", "lat": 8.9447, "lng": 77.3323 },
+        { "name": "KEELAPAVOOR", "type": "Hospital", "lat": 8.8460, "lng": 77.3597 },
+        { "name": "Kuruvikulam", "type": "Hospital", "lat": 8.8363, "lng": 77.2255 },
+        { "name": "Melaneelithanallur", "type": "Hospital", "lat": 8.6950, "lng": 77.3300 },
+        { "name": "Puliangudi MPTY", "type": "Municipality", "lat": 8.8624, "lng": 77.3347 },
+        { "name": "Sankarankovil", "type": "Hospital", "lat": 8.9386, "lng": 77.2908 },
+        { "name": "Sankarankovil MPTY", "type": "Municipality", "lat": 8.9386, "lng": 77.2908 },
+        { "name": "Sengottai MPTY", "type": "Municipality", "lat": 8.9892, "lng": 77.2497 },
+        { "name": "Senkottai", "type": "Hospital", "lat": 8.9892, "lng": 77.2497 },
+        { "name": "Tenkasi", "type": "Hospital", "lat": 8.9644, "lng": 77.3245 },
+        { "name": "Tenkasi MPTY", "type": "Municipality", "lat": 8.9644, "lng": 77.3245 },
+        { "name": "Vasudevanallur", "type": "Hospital", "lat": 9.1170, "lng": 77.2980 }
+      ]
+    },
+    "KANYA": {
+      "district_name": "Kanyakumari",
+      "blocks": [
+        { "name": "Agastheeswaram", "type": "Hospital", "lat": 8.1810, "lng": 77.3946 },
+        { "name": "Colachel MPTY", "type": "Municipality", "lat": 8.1839, "lng": 77.2854 },
+        { "name": "Killiyur", "type": "Hospital", "lat": 8.2346, "lng": 77.4117 },
+        { "name": "Kuruthangode", "type": "Hospital", "lat": 8.2480, "lng": 77.4333 },
+        { "name": "Kuzhithurai MPTY", "type": "Municipality", "lat": 8.2632, "lng": 77.3636 },
+        { "name": "Melpuram", "type": "Hospital", "lat": 8.2535, "lng": 77.3837 },
+        { "name": "Munichirai", "type": "Hospital", "lat": 9.1230, "lng": 77.4520 },
+        { "name": "Nagercoil CORPN.", "type": "Corporation", "lat": 8.1744, "lng": 77.4440 },
+        { "name": "Padmanabhapuram MPTY", "type": "Municipality", "lat": 8.1876, "lng": 77.4280 },
+        { "name": "Rajakkamangalam", "type": "Hospital", "lat": 8.2130, "lng": 77.3845 },
+        { "name": "Thackalay", "type": "Hospital", "lat": 8.2023, "lng": 77.4433 },
+        { "name": "Thiruvattar", "type": "Hospital", "lat": 8.2752, "lng": 77.4398 },
+        { "name": "Thovala", "type": "Hospital", "lat": 8.2186, "lng": 77.4378 }
+      ]
+    },
+    "VIRU": {
+      "district_name": "Virudhunagar",
+      "blocks": [
+        { "name": "Aruppukottai", "type": "Hospital", "lat": 9.5055, "lng": 77.9407 },
+        { "name": "Aruppukottai MPTY", "type": "Municipality", "lat": 9.5055, "lng": 77.9407 },
+        { "name": "Kariapatti", "type": "Hospital", "lat": 9.6800, "lng": 78.2500 },
+        { "name": "Narikudi", "type": "Hospital", "lat": 9.3860, "lng": 78.0790 },
+        { "name": "Thiruchuli", "type": "Hospital", "lat": 9.4888, "lng": 78.0013 },
+        { "name": "Virudhunagar", "type": "Hospital", "lat": 9.5730, "lng": 78.1460 },
+        { "name": "Virudunagar MPTY", "type": "Municipality", "lat": 9.5730, "lng": 78.1460 }
+      ]
+    },
+    "RAMAN": {
+      "district_name": "Ramanathapuram",
+      "blocks": [
+        { "name": "Keelakarai MPTY", "type": "Municipality", "lat": 9.3632, "lng": 78.8320 },
+        { "name": "Mandapam", "type": "Hospital", "lat": 9.2865, "lng": 79.3037 },
+        { "name": "Rajasingamangalam", "type": "Hospital", "lat": 9.3865, "lng": 78.8570 },
+        { "name": "Ramanathapuram", "type": "Hospital", "lat": 9.3667, "lng": 78.8350 },
+        { "name": "Ramanathapuram MPTY", "type": "Municipality", "lat": 9.3667, "lng": 78.8350 },
+        { "name": "Rameswaram MPTY", "type": "Municipality", "lat": 9.2877, "lng": 79.3120 },
+        { "name": "Thirupullani", "type": "Hospital", "lat": 9.2802, "lng": 79.3325 },
+        { "name": "Thiruvadanai", "type": "Hospital", "lat": 10.2630, "lng": 78.7737 }
+      ]
+    }
+  }
+}

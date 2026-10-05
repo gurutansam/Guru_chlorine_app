@@ -1,0 +1,576 @@
+import React, { useEffect, useState } from "react";
+import {
+  Box,
+  TableContainer,
+  Table,
+  TableHead,
+  TableBody,
+  TableRow,
+  TableCell,
+  Paper,
+  Select,
+  MenuItem,
+  FormControl,
+  InputLabel,
+  Button,
+  Typography,
+  CircularProgress,
+  Dialog,
+  DialogContent,
+  IconButton,
+  TablePagination,
+  TextField,
+} from "@mui/material";
+import { saveAs } from "file-saver";
+import ExcelJS from "exceljs";
+import DownloadForOfflineIcon from "@mui/icons-material/DownloadForOffline";
+import CloseIcon from "@mui/icons-material/Close";
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import DashboardLayout from "./DashboardLayout";
+import { MapContainer, TileLayer, Marker, Polyline, Popup } from "react-leaflet";
+import L from "leaflet";
+import "leaflet/dist/leaflet.css";
+
+// Fix Leaflet marker icon
+delete L.Icon.Default.prototype._getIconUrl;
+L.Icon.Default.mergeOptions({
+  iconRetinaUrl:
+    "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon-2x.png",
+  iconUrl:
+    "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png",
+  shadowUrl:
+    "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png",
+});
+
+const BlockHISupervisionTable = () => {
+  const [data, setData] = useState([]);
+  const [filteredData, setFilteredData] = useState([]);
+  const [user, setUser] = useState(null);
+  const [usernameFilter, setUsernameFilter] = useState("");
+  const [fromDate, setFromDate] = useState("");
+  const [toDate, setToDate] = useState("");
+  const [colorFilter, setColorFilter] = useState("");
+  const [photoModal, setPhotoModal] = useState({ open: false, photos: [], index: 0 });
+  const [mapModal, setMapModal] = useState({ open: false, locations: [] });
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
+
+  // Fetch logged-in user and block-specific data
+  useEffect(() => {
+    const fetchLoggedInUserAndData = async () => {
+      try {
+        // Step 1: Get logged-in user
+        const userRes = await fetch("http://localhost:3000/dashboard/mosquito-block-users");
+        const users = await userRes.json();
+        const loggedInUsername = localStorage.getItem("loggedInUsername");
+        const matchedUser = users.find((u) => u.username === loggedInUsername);
+        if (matchedUser) setUser(matchedUser);
+
+        // Step 2: Fetch HI monitoring data
+        const res = await fetch("http://localhost:3000/dashboard/hi-monitoring");
+        const json = await res.json();
+
+        // Step 3: Filter by logged-in user's block and map
+        const mapped = json
+          .filter((item) => {
+            if (!matchedUser) return false;
+            return (
+              item.block_name?.toLowerCase().trim() ===
+              matchedUser.block_name?.toLowerCase().trim()
+            );
+          })
+          .map((item) => {
+            const photos = [];
+            const locations = [];
+            for (let i = 0; i < 10; i++) {
+              const path = item[`photo${i}`];
+              const lat = item[`photo${i}_lat`];
+              const long = item[`photo${i}_long`];
+              if (path) {
+                const uri = path.startsWith("http") ? path : `http://localhost:3000${path}`;
+                photos.push(uri);
+                if (lat && long) locations.push({ lat: parseFloat(lat), lng: parseFloat(long) });
+              }
+            }
+
+            return {
+              id: item.id,
+              username: item.hi_name || "N/A",
+              district: item.district_name || "N/A",
+              block_name: item.block_name || "N/A",
+              count: item.total_visited || 0,
+              total_target: item.total_target || 0,
+              num_dbcs: item.num_dbcs || 0,
+              verified: item.verified || "No",
+              timestamp: item.timestamp,
+              photos,
+              locations,
+            };
+          });
+
+        setData(mapped);
+        setFilteredData(mapped);
+      } catch (err) {
+        console.error("Error fetching data:", err);
+      }
+    };
+
+    fetchLoggedInUserAndData();
+  }, []);
+
+  const calculateDistance = (locations) => {
+    if (!locations || locations.length < 2) return 0;
+    const toRad = (val) => (val * Math.PI) / 180;
+    const R = 6371;
+    let dist = 0;
+    for (let i = 1; i < locations.length; i++) {
+      const { lat: lat1, lng: lon1 } = locations[i - 1];
+      const { lat: lat2, lng: lon2 } = locations[i];
+      const dLat = toRad(lat2 - lat1);
+      const dLon = toRad(lon2 - lon1);
+      const a =
+        Math.sin(dLat / 2) ** 2 +
+        Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) * Math.sin(dLon / 2) ** 2;
+      const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+      dist += R * c;
+    }
+    return dist.toFixed(2);
+  };
+
+  // Filtering
+  useEffect(() => {
+    let filtered = [...data];
+    if (usernameFilter) filtered = filtered.filter((d) => d.username === usernameFilter);
+    if (fromDate)
+      filtered = filtered.filter(
+        (d) => new Date(d.timestamp).toISOString().split("T")[0] >= fromDate
+      );
+    if (toDate)
+      filtered = filtered.filter(
+        (d) => new Date(d.timestamp).toISOString().split("T")[0] <= toDate
+      );
+    if (colorFilter) {
+      filtered = filtered.filter((item) => {
+        const percent = item.total_target ? (item.count / item.total_target) * 100 : 0;
+        if (percent < 80 && colorFilter === "red") return true;
+        if (percent >= 80 && percent < 100 && colorFilter === "orange") return true;
+        if (percent >= 100 && colorFilter === "green") return true;
+        return false;
+      });
+    }
+    setFilteredData(filtered);
+    setPage(0);
+  }, [usernameFilter, fromDate, toDate, colorFilter, data]);
+
+  const formatDate = (isoString) => {
+    if (!isoString) return "N/A";
+    const date = new Date(isoString);
+    return `${String(date.getDate()).padStart(2, "0")}-${String(
+      date.getMonth() + 1
+    ).padStart(2, "0")}-${date.getFullYear()}`;
+  };
+
+  // Excel Export
+  const downloadExcel = async () => {
+    const workbook = new ExcelJS.Workbook();
+    const worksheet = workbook.addWorksheet("HI Monitoring");
+
+    worksheet.columns = [
+      { header: "S.No", key: "sno", width: 10 },
+      { header: "HI Name", key: "username", width: 25 },
+      { header: "District", key: "district", width: 25 },
+      { header: "Block", key: "block", width: 20 },
+      { header: "No. of DBCs", key: "num_dbcs", width: 15 },
+      { header: "Visited", key: "count", width: 15 },
+      { header: "Target", key: "total_target", width: 15 },
+      { header: "Percentage", key: "percent", width: 15 },
+      { header: "Verified", key: "verified", width: 15 },
+      { header: "Date", key: "date", width: 15 },
+      { header: "Geolocations", key: "latlongs", width: 40 },
+    ];
+
+    filteredData.forEach((item, index) => {
+      const percent = item.total_target
+        ? ((item.count / item.total_target) * 100).toFixed(2) + "%"
+        : "0%";
+      const latlongs = item.locations
+        .map((l) => `(${l.lat.toFixed(6)}, ${l.lng.toFixed(6)})`)
+        .join(", ");
+
+      worksheet.addRow({
+        sno: index + 1,
+        username: item.username,
+        district: item.district,
+        block: item.block_name,
+        num_dbcs: item.num_dbcs,
+        count: item.count,
+        total_target: item.total_target,
+        percent,
+        verified: item.verified,
+        date: formatDate(item.timestamp),
+        latlongs,
+      });
+    });
+
+    const buffer = await workbook.xlsx.writeBuffer();
+    saveAs(
+      new Blob([buffer]),
+      `HI_Monitoring_${user?.block_name || "Block"}_Report.xlsx`
+    );
+  };
+
+  if (!data.length && user)
+    return (
+      <Box sx={{ display: "flex", justifyContent: "center", mt: 10 }}>
+        <CircularProgress />
+      </Box>
+    );
+
+  const usernameOptions = [...new Set(data.map((d) => d.username))].sort();
+
+  const openPhotoModal = (photos, index = 0) => {
+    setPhotoModal({ open: true, photos, index });
+  };
+
+  const openMapModal = (locations) => {
+    if (!locations || locations.length === 0) return;
+    setMapModal({ open: true, locations });
+  };
+
+  return (
+    <DashboardLayout>
+      <Box sx={{ marginLeft: 9, pt: 15, pb: 4 }}>
+        <Typography variant="h5" fontWeight={700} mb={2}>
+          HOUSES VISITED BY USERS — {user?.block_name || "Loading..."}
+        </Typography>
+
+        {/* Filters */}
+        <Box sx={{ display: "flex", gap: 2, mb: 3, flexWrap: "wrap" }}>
+          <FormControl sx={{ minWidth: 200 }}>
+            <InputLabel>User</InputLabel>
+            <Select
+              value={usernameFilter}
+              onChange={(e) => setUsernameFilter(e.target.value)}
+              label="User"
+            >
+              <MenuItem value="">All Users in {user?.block_name}</MenuItem>
+              {usernameOptions.map((u, i) => (
+                <MenuItem key={i} value={u}>
+                  {u}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+
+          <FormControl sx={{ minWidth: 200 }}>
+            <InputLabel>Color Filter</InputLabel>
+            <Select
+              value={colorFilter}
+              onChange={(e) => setColorFilter(e.target.value)}
+              label="Color Filter"
+            >
+              <MenuItem value="">All Colors</MenuItem>
+              <MenuItem value="red">Red (&lt;80%)</MenuItem>
+              <MenuItem value="orange">Orange (80-99%)</MenuItem>
+              <MenuItem value="green">Green (100%)</MenuItem>
+            </Select>
+          </FormControl>
+
+          <TextField
+            type="date"
+            label="From Date"
+            InputLabelProps={{ shrink: true }}
+            value={fromDate}
+            onChange={(e) => setFromDate(e.target.value)}
+            sx={{ minWidth: 180 }}
+          />
+          <TextField
+            type="date"
+            label="To Date"
+            InputLabelProps={{ shrink: true }}
+            value={toDate}
+            onChange={(e) => setToDate(e.target.value)}
+            sx={{ minWidth: 180 }}
+          />
+
+          <Button
+            variant="contained"
+            color="success"
+            startIcon={<DownloadForOfflineIcon />}
+            onClick={downloadExcel}
+          >
+            Download Excel
+          </Button>
+        </Box>
+
+        {/* Table */}
+        <TableContainer component={Paper}>
+          <Table sx={{ minWidth: 670 }} size="small">
+            <TableHead>
+              <TableRow>
+                {[
+                  "S. No",
+                  "Username",
+                  "District",
+                  "Block",
+                  "No of DBCs",
+                  "Visited",
+                  "Target",
+                  "Percentage",
+                  "Verified",
+                  "Date",
+                  "Photos",
+                  "Geolocations",
+                  "Map",
+                  "Distance (km)",
+                ].map((head, idx) => (
+                  <TableCell
+                    key={idx}
+                    sx={{
+                      fontWeight: "bold",
+                      bgcolor: "#fff",
+                      color: "#333",
+                      py: 2,
+                      fontSize: "15px",
+                      textAlign: "center",
+                    }}
+                  >
+                    {head}
+                  </TableCell>
+                ))}
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {filteredData
+                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                .map((user, idx) => {
+                  const percentValue = user.total_target
+                    ? (user.count / user.total_target) * 100
+                    : 0;
+                  const bgcolor =
+                    percentValue < 80
+                      ? "#ca0b0b"
+                      : percentValue < 100
+                        ? "#FF8C00"
+                        : "#006400";
+                  const latlongs = user.locations
+                    .map((l) => `(${l.lat.toFixed(6)}, ${l.lng.toFixed(6)})`)
+                    .join(", ");
+
+                  return (
+                    <TableRow key={user.id || idx}>
+                      <TableCell>{page * rowsPerPage + idx + 1}</TableCell>
+                      <TableCell>{user.username}</TableCell>
+                      <TableCell>{user.district}</TableCell>
+                      <TableCell>{user.block_name}</TableCell>
+                      <TableCell>{user.num_dbcs}</TableCell>
+                      <TableCell>{user.count}</TableCell>
+                      <TableCell>{user.total_target}</TableCell>
+                      <TableCell
+                        sx={{
+                          fontWeight: 600,
+                          textAlign: "center",
+                          color: "#fff",
+                          bgcolor,
+                        }}
+                      >
+                        {percentValue.toFixed(2)}%
+                      </TableCell>
+                      <TableCell
+                        sx={{
+                          fontWeight: 600,
+                          textAlign: "center",
+                          color: user.verified === "Yes" ? "green" : "red",
+                        }}
+                      >
+                        {user.verified}
+                      </TableCell>
+                      <TableCell>{formatDate(user.timestamp)}</TableCell>
+
+                      {/* Photos */}
+                      <TableCell>
+                        {user.photos.slice(0, 3).map((photo, i) => (
+                          <Box
+                            key={i}
+                            component="img"
+                            src={photo}
+                            alt={`Photo ${i}`}
+                            sx={{
+                              width: 30,
+                              height: 30,
+                              mr: 0.5,
+                              borderRadius: 1,
+                              objectFit: "cover",
+                              border: "1px solid #ccc",
+                              cursor: "pointer",
+                            }}
+                            onClick={() => openPhotoModal(user.photos, i)}
+                          />
+                        ))}
+                        {user.photos.length > 3 && (
+                          <Box
+                            component="span"
+                            sx={{
+                              ml: 0.5,
+                              cursor: "pointer",
+                              fontWeight: 600,
+                              color: "#007bff",
+                            }}
+                            onClick={() => openPhotoModal(user.photos, 3)}
+                          >
+                            +{user.photos.length - 3}
+                          </Box>
+                        )}
+                      </TableCell>
+
+                      <TableCell sx={{ fontSize: "12px" }}>{latlongs || "N/A"}</TableCell>
+
+                      <TableCell sx={{ textAlign: "center" }}>
+                        {user.locations.length > 0 && (
+                          <IconButton onClick={() => openMapModal(user.locations)}>
+                            <VisibilityIcon />
+                          </IconButton>
+                        )}
+                      </TableCell>
+                      <TableCell sx={{ fontWeight: 600, textAlign: "center", color: "#1a73e8" }}>
+                        {calculateDistance(user.locations)} km
+                      </TableCell>
+                    </TableRow>
+                  );
+                })}
+            </TableBody>
+          </Table>
+
+          <TablePagination
+            component="div"
+            count={filteredData.length}
+            page={page}
+            onPageChange={(e, newPage) => setPage(newPage)}
+            rowsPerPage={rowsPerPage}
+            onRowsPerPageChange={(e) => {
+              setRowsPerPage(parseInt(e.target.value, 10));
+              setPage(0);
+            }}
+            rowsPerPageOptions={[5, 10, 25, 50]}
+          />
+        </TableContainer>
+
+        {/* Photo Modal */}
+        <Dialog
+          open={photoModal.open}
+          onClose={() => setPhotoModal({ open: false, photos: [], index: 0 })}
+          maxWidth="lg"
+          fullWidth
+        >
+          <DialogContent sx={{ position: "relative", textAlign: "center", p: 0 }}>
+            <IconButton
+              onClick={() => setPhotoModal({ open: false, photos: [], index: 0 })}
+              sx={{ position: "absolute", top: 8, right: 8, bgcolor: "#fff", zIndex: 10 }}
+            >
+              <CloseIcon />
+            </IconButton>
+            {photoModal.photos.length > 0 && (
+              <Box
+                component="img"
+                src={photoModal.photos[photoModal.index]}
+                alt={`Photo ${photoModal.index}`}
+                sx={{ maxWidth: "90vw", maxHeight: "80vh" }}
+              />
+            )}
+            <Button
+              onClick={() =>
+                setPhotoModal((prev) => ({
+                  ...prev,
+                  index: (prev.index - 1 + prev.photos.length) % prev.photos.length,
+                }))
+              }
+              sx={{
+                position: "absolute",
+                left: 10,
+                top: "50%",
+                transform: "translateY(-50%)",
+              }}
+            >
+              ←
+            </Button>
+            <Button
+              onClick={() =>
+                setPhotoModal((prev) => ({
+                  ...prev,
+                  index: (prev.index + 1) % prev.photos.length,
+                }))
+              }
+              sx={{
+                position: "absolute",
+                right: 10,
+                top: "50%",
+                transform: "translateY(-50%)",
+              }}
+            >
+              →
+            </Button>
+          </DialogContent>
+        </Dialog>
+
+        {/* Map Modal */}
+        <Dialog
+          open={mapModal.open}
+          onClose={() => setMapModal({ open: false, locations: [] })}
+          maxWidth="lg"
+          fullWidth
+        >
+          <DialogContent sx={{ position: "relative", height: "80vh", p: 0 }}>
+            <IconButton
+              onClick={() => setMapModal({ open: false, locations: [] })}
+              sx={{ position: "absolute", top: 8, right: 8, bgcolor: "#fff", zIndex: 10 }}
+            >
+              <CloseIcon />
+            </IconButton>
+
+            {mapModal.locations.length > 0 && (() => {
+              const positions = mapModal.locations.map((loc) => [loc.lat, loc.lng]);
+              const first = positions[0];
+              const last = positions[positions.length - 1];
+              const totalDistanceKm = calculateDistance(mapModal.locations);
+
+              return (
+                <MapContainer center={first} zoom={13} style={{ height: "100%", width: "100%" }}>
+                  <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+                  <Marker position={first}>
+                    <Popup>Start: {first[0].toFixed(6)}, {first[1].toFixed(6)}</Popup>
+                  </Marker>
+                  <Marker position={last}>
+                    <Popup>
+                      End: {last[0].toFixed(6)}, {last[1].toFixed(6)} <br />
+                      Total Distance: {totalDistanceKm} km
+                    </Popup>
+                  </Marker>
+                  <Polyline positions={positions} color="blue" weight={3} opacity={0.7} />
+                  <div
+                    style={{
+                      position: "absolute",
+                      top: 10,
+                      right: 10,
+                      background: "rgba(255, 255, 255, 0.9)",
+                      padding: "8px 14px",
+                      borderRadius: 8,
+                      zIndex: 1000,
+                      fontWeight: "bold",
+                      fontSize: "16px",
+                      color: "#1a73e8",
+                      boxShadow: "0 4px 12px rgba(0,0,0,0.25)",
+                    }}
+                  >
+                    Path Distance: {totalDistanceKm} km
+                  </div>
+                </MapContainer>
+              );
+            })()}
+          </DialogContent>
+        </Dialog>
+      </Box>
+    </DashboardLayout>
+  );
+};
+
+export default BlockHISupervisionTable;

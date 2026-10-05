@@ -1,0 +1,188 @@
+import React, { useState, useEffect } from "react";
+import DashboardLayout from "./DashboardLayout";
+import DataCollectionChart from "./DataCollectionChart";
+import TamilNaduMap from "./hubTamilNadu";
+import DownloadIcon from "@mui/icons-material/Download";
+import * as XLSX from "xlsx";
+import jsPDF from "jspdf";
+import { Box } from "@mui/material";
+import ChlorineSummaryCard from "./ChlorineSummaryCard";
+import ChlDataCollectionTable from "./ChlPpmSummary";
+import PpmSummaryTable from "./PpmOverviewTable";
+import PpmSummaryCard from "./HudSummaryCard";
+
+// CSV Export
+function exportToCSV(data, filename = "data.csv") {
+  if (!data.length) return;
+  const csvRows = [];
+  const headers = Object.keys(data[0]);
+  csvRows.push(headers.join(","));
+  for (const row of data) {
+    const values = headers.map((header) => {
+      const val = row[header];
+      return typeof val === "string" && val.includes(",") ? `"${val}"` : val;
+    });
+    csvRows.push(values.join(","));
+  }
+  const csvString = csvRows.join("\n");
+  const blob = new Blob([csvString], { type: "text/csv" });
+  const url = window.URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = filename;
+  a.click();
+  window.URL.revokeObjectURL(url);
+}
+
+// Excel Export
+function exportToExcel(data, filename = "data.xlsx") {
+  const ws = XLSX.utils.json_to_sheet(data);
+  const wb = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
+  XLSX.writeFile(wb, filename);
+}
+
+// PDF Export
+function exportToPDF(data, filename = "data.pdf") {
+  const doc = new jsPDF();
+  const headers = Object.keys(data[0] || {});
+  let y = 10;
+  doc.setFontSize(10);
+  doc.text(headers.join(" | "), 10, y);
+  y += 8;
+  data.forEach((row) => {
+    const rowString = headers.map((h) => row[h]).join(" | ");
+    doc.text(rowString, 10, y);
+    y += 8;
+    if (y > 280) {
+      doc.addPage();
+      y = 10;
+    }
+  });
+  doc.save(filename);
+}
+
+// DOC Export
+function exportToDoc(data, filename = "data.doc") {
+  const headers = Object.keys(data[0] || {});
+  let docContent = headers.join("\t") + "\n";
+  data.forEach((row) => {
+    docContent += headers.map((h) => row[h]).join("\t") + "\n";
+  });
+  const blob = new Blob([docContent], { type: "application/msword" });
+  const url = window.URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = filename;
+  a.click();
+  window.URL.revokeObjectURL(url);
+}
+
+const HubDashboard = () => {
+  const [filteredRows, setFilteredRows] = useState([]);
+  const [showDropdown, setShowDropdown] = useState(false);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await fetch("http://localhost:3000/dashboard/chl_datacollection");
+        const result = await res.json();
+        if (Array.isArray(result)) {
+          const formatted = result.map((item, index) => ({
+            id: index + 1,
+            ...item,
+          }));
+          setFilteredRows(formatted);
+        } else {
+          console.error("Invalid data format:", result);
+        }
+      } catch (err) {
+        console.error("Failed to fetch chlorination data:", err);
+      }
+    };
+    fetchData();
+  }, []);
+
+  const handleDownload = (format) => {
+    if (!filteredRows.length) {
+      alert("No data to download.");
+      return;
+    }
+
+    switch (format) {
+      case "csv":
+        exportToCSV(filteredRows, "chlorination_data.csv");
+        break;
+      case "excel":
+        exportToExcel(filteredRows, "chlorination_data.xlsx");
+        break;
+      case "pdf":
+        exportToPDF(filteredRows, "chlorination_data.pdf");
+        break;
+      case "doc":
+        exportToDoc(filteredRows, "chlorination_data.doc");
+        break;
+      default:
+        alert("Unknown format");
+    }
+  };
+
+  return (
+    <DashboardLayout>
+      <Box display="flex" flexWrap="wrap" sx={{ mt: 20, ml: 10 }}>
+        <ChlorineSummaryCard />
+      </Box>
+      {/* <Box sx={{ mt: 6, ml: 5, mr: 5 }}>
+       <PpmSummaryCard rows={filteredRows} />
+     </Box> */}
+      {/* Map */}
+      <div
+        className="mb-5"
+        style={{
+          marginTop: "150px",
+          marginLeft: "50px",
+          height: "400px",
+          overflow: "hidden",
+          borderRadius: "18px",
+          boxShadow: "0 2px 12px rgba(0,0,0,0.08)",
+        }}
+      >
+        <TamilNaduMap />
+      </div>
+
+      {/* Chart & Download Button in Parallel */}
+      <div
+        className="mb-5"
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          gap: "20px", // space between chart and button
+        }}
+      >
+        <DataCollectionChart rows={filteredRows} />
+
+        <div className="dropdown" style={{ display: "inline-block" }}>
+
+          {showDropdown && (
+            <div className="dropdown-menu show">
+              <button className="dropdown-item" onClick={() => handleDownload("csv")}>CSV</button>
+              <button className="dropdown-item" onClick={() => handleDownload("excel")}>Excel</button>
+              <button className="dropdown-item" onClick={() => handleDownload("pdf")}>PDF</button>
+              <button className="dropdown-item" onClick={() => handleDownload("doc")}>DOC</button>
+            </div>
+          )}
+        </div>
+      </div>
+
+      <Box sx={{ mt: 6, ml: 5, mr: 5 }}>
+        <ChlDataCollectionTable rows={filteredRows} />
+      </Box>
+      <Box sx={{ mt: 6, ml: 5, mr: 5 }}>
+        <PpmSummaryTable rows={filteredRows} />
+      </Box>
+    </DashboardLayout>
+  );
+};
+
+export default HubDashboard;
